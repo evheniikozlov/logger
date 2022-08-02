@@ -6,9 +6,8 @@ import (
 )
 
 type Encoder struct {
-	TimeFormat string
 }
 
 func (encoder Encoder) Encode(message logger.Message) (string, error) {
-	return fmt.Sprintf("%s %s %s", message.Level, message.Time.Format(encoder.TimeFormat), message.Data), nil
+	return fmt.Sprintf("%s %s %s", message.Level, message.Time, message.Data), nil
 }
