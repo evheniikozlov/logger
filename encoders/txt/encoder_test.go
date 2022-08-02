@@ -25,9 +25,9 @@ func TestEncoder_Encode(t *testing.T) {
 		},
 	}
 	for _, param := range params {
-		now := time.Now()
-		expected := fmt.Sprintf("%s %s %s", param.level, now.Format(param.timeLayout), param.data)
-		actual, err := Encoder{}.Encode(logger.Message{Level: param.level, Time: now.Format(param.timeLayout), Data: param.data})
+		message := logger.Message{Level: param.level, Time: time.Now().Format(param.timeLayout), Data: param.data}
+		expected := fmt.Sprintf("%s %s %s", message.Level, message.Time, message.Data)
+		actual, err := Encoder{}.Encode(message)
 		if err != nil {
 			t.Fatal(err)
 		}
