@@ -1,4 +1,4 @@
-package txt
+package json
 
 import (
 	"encoding/json"
