@@ -47,21 +47,21 @@ func TestDefaultLogger_Log(t *testing.T) {
 func testDefaultLoggerMethodByLevel(t *testing.T, level string) {
 	params := []struct {
 		data       string
-		timeFormat string
+		timeLayout string
 	}{
 		{
 			data:       "data",
-			timeFormat: "2006-01-02 15:04:05",
+			timeLayout: "2006-01-02 15:04:05",
 		},
 		{
 			data:       "data2",
-			timeFormat: "2006-01-02",
+			timeLayout: "2006-01-02",
 		},
 	}
 	for _, param := range params {
 		var output bytes.Buffer
-		datetime := time.Now().Format(param.timeFormat)
-		err := callLoggerMethodByLevel(DefaultLogger{Encoder: TestEncoder{}, Output: &output, TimeFormat: param.timeFormat}, level, param.data)
+		datetime := time.Now().Format(param.timeLayout)
+		err := callLoggerMethodByLevel(DefaultLogger{Encoder: TestEncoder{}, Output: &output, TimeLayout: param.timeLayout}, level, param.data)
 		if err != nil {
 			t.Fatal(err)
 		}

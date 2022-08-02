@@ -9,7 +9,7 @@ import (
 type DefaultLogger struct {
 	Encoder    Encoder
 	Output     io.Writer
-	TimeFormat string
+	TimeLayout string
 }
 
 func (logger DefaultLogger) Trace(data any) error {
@@ -37,7 +37,7 @@ func (logger DefaultLogger) Fatal(data any) error {
 }
 
 func (logger DefaultLogger) Log(level string, data any) error {
-	encodedMessage, err := logger.Encoder.Encode(Message{Level: level, Time: time.Now().Format(logger.TimeFormat), Data: data})
+	encodedMessage, err := logger.Encoder.Encode(Message{Level: level, Time: time.Now().Format(logger.TimeLayout), Data: data})
 	if err != nil {
 		return err
 	}
