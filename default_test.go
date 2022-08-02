@@ -11,11 +11,10 @@ import (
 const separator = "$"
 
 type TestEncoder struct {
-	TimeFormat string
 }
 
 func (encoder TestEncoder) Encode(message Message) (string, error) {
-	return fmt.Sprintf("%s%s%s%s%s", message.Level, separator, message.Time.Format(encoder.TimeFormat), separator, message.Data), nil
+	return fmt.Sprintf("%s%s%s%s%s", message.Level, separator, message.Time, separator, message.Data), nil
 }
 
 func TestDefaultLogger_Trace(t *testing.T) {
@@ -47,22 +46,22 @@ func TestDefaultLogger_Log(t *testing.T) {
 
 func testDefaultLoggerMethodByLevel(t *testing.T, level string) {
 	params := []struct {
-		data   string
-		format string
+		data       string
+		timeFormat string
 	}{
 		{
-			data:   "data",
-			format: "2006-01-02 15:04:05",
+			data:       "data",
+			timeFormat: "2006-01-02 15:04:05",
 		},
 		{
-			data:   "data2",
-			format: "2006-01-02",
+			data:       "data2",
+			timeFormat: "2006-01-02",
 		},
 	}
 	for _, param := range params {
 		var output bytes.Buffer
-		datetime := time.Now().Format(param.format)
-		err := callLoggerMethodByLevel(DefaultLogger{Encoder: TestEncoder{TimeFormat: param.format}, Output: &output}, level, param.data)
+		datetime := time.Now().Format(param.timeFormat)
+		err := callLoggerMethodByLevel(DefaultLogger{Encoder: TestEncoder{}, Output: &output, TimeFormat: param.timeFormat}, level, param.data)
 		if err != nil {
 			t.Fatal(err)
 		}

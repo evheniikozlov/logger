@@ -1,10 +1,8 @@
 package logger
 
-import "time"
-
 type Message struct {
 	Level string
-	Time  time.Time
+	Time  string
 	Data  any
 }
 
