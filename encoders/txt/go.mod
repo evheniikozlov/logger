@@ -1,4 +1,4 @@
-module github.com/evheniikozlov/logger/encoders/text
+module github.com/evheniikozlov/logger/encoders/txt
 
 go 1.18
 
